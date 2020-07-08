@@ -110,6 +110,9 @@ spec:
               confluent-hub install --no-prompt neo4j/kafka-connect-neo4j:1.0.7
               echo \
               {{ .Files.Get "MongoDB_sink.properties" | toString | squote | indent 14}} >> /usr/share/confluent-hub-components/hpgrahsl-kafka-connect-mongodb/etc/MongoDB_sink.properties
+              echo \
+              {{ .Files.Get "Neo4j_sink.properties" | toString | squote | indent 14}} >> /usr/share/confluent-hub-components/neo4j-kafka-connect-neo4j/etc/Neo4j_sink.properties
+              echo "bootstrap.servers=kafka-test-headless.prgr3.svc:9092" >> /etc/kafka/connect-standalone.properties
               sleep infinity
         {{- if .Values.customEnv.CUSTOM_SCRIPT_PATH }}
           command:

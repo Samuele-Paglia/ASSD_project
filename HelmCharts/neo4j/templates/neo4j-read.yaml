@@ -11,12 +11,12 @@ spec:
     release: neo4j
   ports:
     - name: broswer
-      nodePort: 31400
+      nodePort: 31450
       port: 7474
       protocol: TCP
       targetPort: 7474
     - name: bolt
-      nodePort: 31401
+      nodePort: 31451
       port: 7687
       protocol: TCP
       targetPort: 7687

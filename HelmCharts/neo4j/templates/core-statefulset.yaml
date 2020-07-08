@@ -99,11 +99,11 @@ spec:
                   {{- end }}
             - name: plugins
               mountPath: /plugins
-          resources:
-            limits:
-              cpu: 1900m
-            requests:
-              cpu: 1900m
+          # resources:
+          #   limits:
+          #     cpu: 1900m
+          #   requests:
+          #     cpu: 1900m
 {{/*            {{ toYaml .Values.resources | indent 10 }}*/}}
             {{- if .Values.core.sidecarContainers }}
             {{ toYaml .Values.core.sidecarContainers | indent 6 }}

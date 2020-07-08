@@ -9,12 +9,12 @@ spec:
     statefulset.kubernetes.io/pod-name: "{{ template "neo4j.core.fullname" . }}-0"
   ports:
   - protocol: TCP
-    nodePort: 31000
+    nodePort: 31050
     port: 7474
     targetPort: 7474
     name: broswer
   - protocol: TCP
-    nodePort: 32000
+    nodePort: 32050
     port: 7687
     targetPort: 7687
     name: bolt
