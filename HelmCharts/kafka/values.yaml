@@ -24,7 +24,7 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 1024Mi
-kafkaHeapOptions: "-Xmx1G -Xms1G"
+kafkaHeapOptions: "-Xmx2G -Xms2G"
 
 ## Optional Container Security context
 securityContext: {}
