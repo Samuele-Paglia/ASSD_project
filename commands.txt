@@ -1,0 +1,21 @@
+################################################################ MongoDB ################################################################
+
+cd /etc/kafka
+
+connect-standalone connect-standalone.properties /usr/share/confluent-hub-components/hpgrahsl-kafka-connect-mongodb/etc/MongoDB_sink.properties
+
+connect-distributed connect-distributed.properties /usr/share/confluent-hub-components/hpgrahsl-kafka-connect-mongodb/etc/MongoDB_sink.properties
+
+################################################################# Neo4J #################################################################
+
+cd /etc/kafka
+
+connect-standalone connect-standalone.properties /usr/share/confluent-hub-components/neo4j-kafka-connect-neo4j/etc/Neo4j_sink.properties
+
+connect-distributed connect-distributed.properties /usr/share/confluent-hub-components/neo4j-kafka-connect-neo4j/etc/Neo4j_sink.properties
+
+################################################################# Others ################################################################
+
+kafka-console-producer --broker-list kafka-test-cp-kafka-headless:9092 --topic kafkaTest
+
+kafka-console-consumer --bootstrap-server kafka-test-cp-kafka-headless:9092 --topic kafkaTest --from-beginning
