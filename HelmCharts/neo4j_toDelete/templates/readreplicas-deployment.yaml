@@ -9,7 +9,7 @@ metadata:
     app: {{ template "neo4j.name" . }}
     component: replica
 spec:
-  replicas: 2
+  replicas: 0
   template:
     metadata:
       labels:
