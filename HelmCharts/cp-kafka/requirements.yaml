@@ -1,0 +1,4 @@
+dependencies:
+- name: cp-zookeeper
+  version: 0.1.0
+  condition: cp-zookeeper.enabled
