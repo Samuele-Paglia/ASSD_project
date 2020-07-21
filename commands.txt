@@ -46,3 +46,8 @@ set n.infected=event.infectedA merge (z:Entity{idEntity:event.idEntityB}) on cre
 set z.infected=event.infectedB merge (n)-[r:CONNECTED]-(z) on create set r.timestamp=[], r.proximityIndex=[] set r.timestamp=r.timestamp+[event.timestamp], r.proximityIndex=r.proximityIndex+[event.proximityIndex]","value.converter":"org.apache.kafka.connect.json.JsonConverter","value.converter.schemas.enable":"false"}
 
 {"idEntityA":"a002e", "infectedA":"false", "idEntityB":"a001f", "infectedB":"false", "timestamp":"2020-07-18", "proximityIndex":"3.5"}
+
+
+
+
+curl -X PUT -H "Content-Type: application/json" --data '{"name":"neo4j-connector","topics":"kafkaTest","connector.class":"streams.kafka.connect.sink.Neo4jSinkConnector","errors.retry.timeout":"-1","errors.retry.delay.max.ms":"1000","errors.tolerance":"all","errors.log.enable":"true","errors.log.include.messages":"true","neo4j.server.uri":"bolt://neo4jtest-neo4j-core-0.neo4jtest-neo4j.prgr3.svc.cluster.local:7687","neo4j.authentication.basic.username":"neo4j","neo4j.authentication.basic.password":"password","neo4j.encryption.enabled":"false","neo4j.topic.cypher.kafkaTest":"merge (n:Entity{idEntity:event.idEntityA}) on create set n.infected='false', n.bc=0 set n.infected=event.infectedA merge (z:Entity{idEntity:event.idEntityB}) on create set z.infected='false', z.bc=0 set z.infected=event.infectedB merge (n)-[r:CONNECTED]-(z) on create set r.timestamp=[], r.proximityIndex=[] set r.timestamp=r.timestamp+[event.timestamp], r.proximityIndex=r.proximityIndex+[event.proximityIndex]","value.converter":"org.apache.kafka.connect.json.JsonConverter","value.converter.schemas.enable":"false"}' localhost:8083/connectors/neo4j-connector/config
