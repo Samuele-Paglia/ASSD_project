@@ -21,6 +21,11 @@ spec:
     port: 8161
     protocol: TCP
     targetPort: 8161
+  - name: mqtt
+    nodePort: 30042
+    port: 1883
+    protocol: TCP
+    targetPort: 1883
   selector:
     app: {{ template "artemis.name" . }}
     release: {{ .Release.Name | quote }}
