@@ -1,12 +1,7 @@
 /artemis-kafkasourceconnector/target
-*.classpath
-
-### Eclipse ###
-
-*.metadata
+**.classpath
+**.metadata
 bin/
 tmp/
-*.tmp
-local.properties
-*.settings/
-.loadpath
+**.tmp
+**.settings/
