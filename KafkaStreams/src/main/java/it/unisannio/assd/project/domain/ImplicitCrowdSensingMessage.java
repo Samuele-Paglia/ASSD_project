@@ -1,6 +1,13 @@
 package it.unisannio.assd.project.domain;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import it.unisannio.assd.project.util.CustomDateSerializer;
+
+
 
 @JsonFilter("parametersFilter")
 public class ImplicitCrowdSensingMessage {
@@ -10,11 +17,12 @@ public class ImplicitCrowdSensingMessage {
 	private int rssi;
 	private int txPower;
 	private float proximityIndex;
-	private long timestamp;
+	@JsonSerialize(using = CustomDateSerializer.class)
+	private Date timestamp;
 	
 	public ImplicitCrowdSensingMessage() { }
 	
-	public ImplicitCrowdSensingMessage(String uuidReceiver, String uuidSender, int rssi, int txPower, long timestamp) {
+	public ImplicitCrowdSensingMessage(String uuidReceiver, String uuidSender, int rssi, int txPower, Date timestamp) {
 		super();
 		this.uuidReceiver = uuidReceiver;
 		this.uuidSender = uuidSender;
@@ -46,8 +54,12 @@ public class ImplicitCrowdSensingMessage {
 	public float getProximityIndex() {
 		return proximityIndex;
 	}
+	
+	public void setTimestamp(Date date) {
+		this.timestamp = date;
+	}
 
-	public long getTimestamp() {
+	public Date getTimestamp() {
 		return timestamp;
 	}
 

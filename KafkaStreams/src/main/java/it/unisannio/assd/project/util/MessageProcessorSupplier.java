@@ -6,7 +6,6 @@ import org.apache.kafka.streams.processor.ProcessorSupplier;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
@@ -27,7 +26,6 @@ public class MessageProcessorSupplier implements ProcessorSupplier<String, Strin
 		@Override
 		public void process(String key, String value) {
 			ObjectMapper objectMapper = new ObjectMapper();
-			
 			try {
 				ImplicitCrowdSensingMessage message = objectMapper.readValue(value, ImplicitCrowdSensingMessage.class);
 				message.calculateProximityIndex();
@@ -39,9 +37,6 @@ public class MessageProcessorSupplier implements ProcessorSupplier<String, Strin
 			} catch (JsonProcessingException e) {
 				e.printStackTrace();
 			}
-			
-
-
 		}
 
 		@Override
@@ -51,7 +46,6 @@ public class MessageProcessorSupplier implements ProcessorSupplier<String, Strin
 		}
 
 	}
-
 
 	@Override
 	public Processor<String, String> get() {
