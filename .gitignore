@@ -1,6 +1,6 @@
 /artemis-kafkasourceconnector/target
-.classpath
-**/*.metadata
+**/*/.classpath
+**/*/.project
 bin/
 tmp/
 **/*.tmp
