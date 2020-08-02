@@ -27,25 +27,16 @@ public class MessageProcessorSupplier implements ProcessorSupplier<String, Strin
 		@Override
 		public void process(String key, String value) {
 			ObjectMapper objectMapper = new ObjectMapper();
-			ObjectWriter w = objectMapper.writer();
 			
 			try {
 				ImplicitCrowdSensingMessage message = objectMapper.readValue(value, ImplicitCrowdSensingMessage.class);
-				System.out.println(message.getProximityIndex());
 				message.calculateProximityIndex();
-				System.out.println(message.getProximityIndex());
-				FilterProvider filters 
-			      = new SimpleFilterProvider().addFilter(
-			        "myFilter", 
+				FilterProvider filters = new SimpleFilterProvider().addFilter(
+			        "parametersFilter", 
 			        SimpleBeanPropertyFilter.serializeAllExcept("rssi", "txPower"));
-			 
-			    String result = new ObjectMapper()
-			      .writer(filters)
-			      .writeValueAsString(message);
-			    System.out.println(result);
-				context.forward(key, result);
+			    String result = new ObjectMapper().writer(filters).writeValueAsString(message);
+			    context.forward(key, result);
 			} catch (JsonProcessingException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

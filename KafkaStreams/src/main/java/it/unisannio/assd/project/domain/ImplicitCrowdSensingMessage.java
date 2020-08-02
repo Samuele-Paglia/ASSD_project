@@ -2,7 +2,7 @@ package it.unisannio.assd.project.domain;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 
-@JsonFilter("myFilter")
+@JsonFilter("parametersFilter")
 public class ImplicitCrowdSensingMessage {
 	
 	private String uuidReceiver;

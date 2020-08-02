@@ -2,8 +2,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>KafkaStream</groupId>
-	<artifactId>KafkaStream</artifactId>
+	<groupId>KafkaStreams</groupId>
+	<artifactId>KafkaStreams</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<dependencies>
 		<dependency>
@@ -17,6 +17,4 @@
 			<version>2.5.0</version>
 		</dependency>
 	</dependencies>
-
-
 </project>
