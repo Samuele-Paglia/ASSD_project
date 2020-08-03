@@ -11,11 +11,12 @@ public class ECSMessageModifier extends JSONmessageModifier {
 		bootstrapServers = args.length > 0 ? args[0] : bootstrapServers;
 		inputTopic = args.length > 1 ? args[1] : inputTopic;
 		outputTopic = args.length > 2 ? args[2] : outputTopic;
+		System.out.println(args[0] + " --- " + args[1] + " --- " + args[2]);
 //		TODO: ECS suffix is for testing purpose
 		final Topology topologyECS = getTopology()
-				.addSource("sourceProcessorECS", inputTopic+"ECS")
+				.addSource("sourceProcessorECS", inputTopic)
 				.addProcessor("processorECS", new ECSMessageProcessorSupplier(), "sourceProcessorECS")
-				.addSink("sinkProcessorECS", outputTopic+"ECS", "processorECS");
+				.addSink("sinkProcessorECS", outputTopic, "processorECS");
 		KafkaStreams streamsECS = startApp(topologyECS, config);
 		Runtime.getRuntime().addShutdownHook(new Thread(streamsECS::close));
 	}
