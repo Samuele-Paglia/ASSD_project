@@ -9,26 +9,12 @@ import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.Topology;
 
-import it.unisannio.assd.project.util.MessageProcessorSupplier;
-
 public class JSONmessageModifier {
 	
 	static String bootstrapServers = "localhost:9092";
-
-	public static void main(String[] args) {
-		bootstrapServers = args.length > 0 ? args[0] : bootstrapServers;
-
-		final Topology topology = getTopology()
-				.addSource("sourceProcessor", "input-topic")
-				.addProcessor("processor", new MessageProcessorSupplier(), "sourceProcessor")
-				.addSink("sinkProcessor", "output-topic", "processor");
-		
-		final Properties config = getConfig();
-		
-		KafkaStreams streams = startApp(topology, config);
-
-		Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
-	}
+	static String inputTopic = "input-topic";
+	static String outputTopic = "output-topic";
+	static Properties config = getConfig();
 	
 	private static Properties getConfig(){
         Properties streamsConfiguration = new Properties();
@@ -43,16 +29,15 @@ public class JSONmessageModifier {
         return streamsConfiguration;        
     }
 	
-	private static Topology getTopology() {
+	public static Topology getTopology() {
 		final StreamsBuilder builder = new StreamsBuilder();
 		return builder.build();
 	}
 	
-	private static KafkaStreams startApp(Topology topology, Properties config){
+	public static KafkaStreams startApp(Topology topology, Properties config){
         KafkaStreams streams = new KafkaStreams(topology, config);
         streams.start();
         return streams;
     }
-
 
 }

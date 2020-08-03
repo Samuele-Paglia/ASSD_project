@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 
 import it.unisannio.assd.project.domain.ImplicitCrowdSensingMessage;
 
-public class MessageProcessorSupplier implements ProcessorSupplier<String, String> {
+public class ICSMessageProcessorSupplier implements ProcessorSupplier<String, String> {
 
 	public class ICSMessageProcessor implements Processor<String, String> {
 		

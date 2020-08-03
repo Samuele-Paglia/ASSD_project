@@ -46,17 +46,13 @@ public class ImplicitCrowdSensingMessage {
 	public int getTxPower() {
 		return txPower;
 	}
-	
+//	TODO: Maybe to delete. Move the proximity index calculus in the stream process
 	public void calculateProximityIndex() {
 		this.proximityIndex = this.rssi * this.txPower;
 	}
 
 	public float getProximityIndex() {
 		return proximityIndex;
-	}
-	
-	public void setTimestamp(Date date) {
-		this.timestamp = date;
 	}
 
 	public Date getTimestamp() {
@@ -68,9 +64,6 @@ public class ImplicitCrowdSensingMessage {
 		return "ImplicitCrowdSensingMessage [uuidReceiver=" + uuidReceiver + ", uuidSender=" + uuidSender + ", rssi="
 				+ rssi + ", txPower=" + txPower + ", proximityIndex=" + proximityIndex + ", timestamp=" + timestamp
 				+ "]";
-	}
-
-
-	
+	}	
 	
 }
