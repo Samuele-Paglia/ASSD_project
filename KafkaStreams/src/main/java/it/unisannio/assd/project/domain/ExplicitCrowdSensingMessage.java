@@ -4,6 +4,9 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import it.unisannio.assd.project.util.CustomDateSerializer;
 
 @JsonFilter("parametersFilterECS")
 public class ExplicitCrowdSensingMessage {
@@ -13,6 +16,7 @@ public class ExplicitCrowdSensingMessage {
 	private double longitude;
 	@JsonAlias("lat")
 	private double latitude;
+	@JsonSerialize(using = CustomDateSerializer.class)
 	private Date timestamp;
 	
 	public ExplicitCrowdSensingMessage() { }

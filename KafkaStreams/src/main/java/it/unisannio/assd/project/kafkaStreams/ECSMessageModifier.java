@@ -1,4 +1,4 @@
-package it.unisannio.assd.project.kafkaStream;
+package it.unisannio.assd.project.kafkaStreams;
 
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.Topology;
