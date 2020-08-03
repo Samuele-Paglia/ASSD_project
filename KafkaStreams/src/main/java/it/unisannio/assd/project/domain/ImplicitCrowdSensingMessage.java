@@ -46,7 +46,7 @@ public class ImplicitCrowdSensingMessage {
 	public int getTxPower() {
 		return txPower;
 	}
-//	TODO: Maybe to delete. Move the proximity index calculus in the stream process
+//	TODO: Maybe to delete. Move the proximity index calculus in the stream processor
 	public void calculateProximityIndex() {
 		this.proximityIndex = this.rssi * this.txPower;
 	}
