@@ -57,12 +57,11 @@ public final class SchemaMapping {
     	builder.field("txPower", Schema.INT32_SCHEMA);
     	builder.field("timestamp", Schema.FLOAT64_SCHEMA);
     } else if (schemaName.contains("ecs")) {
-    	log.info("############# DEBUG: SONO IN ECS");
     	builder.field("id", Schema.STRING_SCHEMA);
     	builder.field("type", Schema.STRING_SCHEMA);
     	builder.field("longitude", Schema.FLOAT64_SCHEMA);
     	builder.field("latitude", Schema.FLOAT64_SCHEMA);
-    	builder.field("timestamp", Schema.FLOAT64_SCHEMA);
+    	builder.field("timestamp", Schema.INT64_SCHEMA);
     }
     Schema schema = builder.build();
     return new SchemaMapping(schema);
@@ -76,11 +75,8 @@ public final class SchemaMapping {
     this.schema = schema;
     List<FieldSetter> fieldSetters = new ArrayList<>();
     List<Field> fields = schema.fields();
-    for (Field field : fields) {
-    	log.info("############# DEBUG: {}", field.name());
+    for (Field field : fields)
     	fieldSetters.add(new FieldSetter(field));
-    }
-    log.info("#################### " + fieldSetters.toString() + " ####################");
     this.fieldSetters = Collections.unmodifiableList(fieldSetters);
   }
 
@@ -164,7 +160,7 @@ public final class SchemaMapping {
 	    			struct.put(field, ((ExplicitCrowdSensingMessage) m).getLatitude());
 	    			break;
 	    		case "timestamp":
-	    			struct.put(field, ((ExplicitCrowdSensingMessage) m).getTimestamp().toString());
+	    			struct.put(field, ((ExplicitCrowdSensingMessage) m).getTimestamp());
 	    			break;
     		}
     	}

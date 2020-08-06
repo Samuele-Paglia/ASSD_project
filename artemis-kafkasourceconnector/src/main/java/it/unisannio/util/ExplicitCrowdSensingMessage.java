@@ -1,9 +1,6 @@
 package it.unisannio.util;
 
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 public class ExplicitCrowdSensingMessage implements Message {
 	
@@ -13,12 +10,11 @@ public class ExplicitCrowdSensingMessage implements Message {
 	private double longitude;
 	@JsonAlias("lat")
 	private double latitude;
-	@JsonSerialize(using = CustomDateSerializer.class)
-	private Date timestamp;
+	private long timestamp;
 	
 	public ExplicitCrowdSensingMessage() { }
 
-	public ExplicitCrowdSensingMessage(String id, String type, double longitude, double latitude, Date timestamp) {
+	public ExplicitCrowdSensingMessage(String id, String type, double longitude, double latitude, long timestamp) {
 		this.id = id;
 		this.type = type;
 		this.longitude = longitude;
@@ -42,7 +38,7 @@ public class ExplicitCrowdSensingMessage implements Message {
 		return latitude;
 	}
 
-	public Date getTimestamp() {
+	public long getTimestamp() {
 		return timestamp;
 	}
 

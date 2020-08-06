@@ -1,6 +1,8 @@
 package it.unisannio.assd.project.util;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.apache.kafka.streams.processor.Processor;
 import org.apache.kafka.streams.processor.ProcessorContext;
@@ -25,19 +27,24 @@ public class ECSMessageProcessorSupplier implements ProcessorSupplier<String, St
 		@Override
 		public void process(String key, String value) {
 			ObjectMapper objectMapper = new ObjectMapper();
+			JsonNode jsonNode = null;
 			try {
-				JsonNode jsonNode = objectMapper.readTree(value);
-				String type = "'Point'";
-				String locationAttribute = "{ type : " + type + ", coordinates : [ "
-						+ jsonNode.get("long") + " , " + jsonNode.get("lat") + "] }";
-				ArrayList<String> fieldsToRemove = new ArrayList<String>();
-				fieldsToRemove.add("long");
-				fieldsToRemove.add("lat");
-				((ObjectNode) jsonNode).put("location", locationAttribute).remove(fieldsToRemove);
-				context.forward(key, jsonNode.toString());
+				jsonNode = objectMapper.readTree(value);
 			} catch (JsonProcessingException e) {
 				e.printStackTrace();
 			}
+			String locationAttribute = "{ type : 'Point',"
+										+ "coordinates : [ "
+											+ jsonNode.get("longitude") + " , "
+											+ jsonNode.get("latitude") + "] }";
+			ArrayList<String> fieldsToRemove = new ArrayList<String>();
+			fieldsToRemove.add("longitude");
+			fieldsToRemove.add("latitude");
+			String date = new SimpleDateFormat("yyyy-mm-dd").format(new Date(jsonNode.get("timestamp").asLong()));
+			((ObjectNode) jsonNode).put("location", locationAttribute)
+										.put("timestamp", date)
+										.remove(fieldsToRemove);
+			context.forward(key, jsonNode.toString());
 		}
 
 		@Override

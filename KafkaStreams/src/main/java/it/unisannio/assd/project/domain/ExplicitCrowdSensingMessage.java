@@ -1,28 +1,23 @@
 package it.unisannio.assd.project.domain;
 
-import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import it.unisannio.assd.project.util.CustomDateSerializer;
 
 @JsonFilter("parametersFilterECS")
-public class ExplicitCrowdSensingMessage {
+public class ExplicitCrowdSensingMessage implements Message {
 	
 	private String id;
 	private String type;
-	@JsonAlias("long")
 	private double longitude;
-	@JsonAlias("lat")
 	private double latitude;
 	@JsonSerialize(using = CustomDateSerializer.class)
-	private Date timestamp;
+	private long timestamp;
 	
 	public ExplicitCrowdSensingMessage() { }
 
-	public ExplicitCrowdSensingMessage(String id, String type, double longitude, double latitude, Date timestamp) {
+	public ExplicitCrowdSensingMessage(String id, String type, double longitude, double latitude, long timestamp) {
 		this.id = id;
 		this.type = type;
 		this.longitude = longitude;
@@ -46,7 +41,7 @@ public class ExplicitCrowdSensingMessage {
 		return latitude;
 	}
 
-	public Date getTimestamp() {
+	public long getTimestamp() {
 		return timestamp;
 	}
 

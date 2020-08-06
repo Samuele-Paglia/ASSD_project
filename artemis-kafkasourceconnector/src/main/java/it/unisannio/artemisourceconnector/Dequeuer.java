@@ -58,7 +58,6 @@ abstract class Dequeuer implements Comparable<Dequeuer> {
             consumer = getOrCreateConsumer(clientSession);
             messages = dequeue();
             schemaMapping = SchemaMapping.create(queueName);
-            log.info("###################################### Check queue name: {}", queueName);
         }
     }
 

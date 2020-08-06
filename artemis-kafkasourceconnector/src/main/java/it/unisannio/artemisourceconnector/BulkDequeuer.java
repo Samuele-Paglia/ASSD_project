@@ -66,16 +66,13 @@ public class BulkDequeuer extends Dequeuer {
             while (buffer.isReadable())
             	chars[a++] = (char) buffer.readByte();
             String content = new String(chars);
-//            log.info("################################### " + content + " ###################################");
+            log.info("################################### " + content + " ###################################");
             Message mex = null;
             ObjectMapper objectMapper = new ObjectMapper();
             if (queueName.contains("ics"))
             	mex = objectMapper.readValue(content, ImplicitCrowdSensingMessage.class);
-            else if (queueName.contains("ecs")) {
-            	log.info("############# DEBUG: SONO IN BULKDEQ - ECS");
+            else if (queueName.contains("ecs"))
             	mex = objectMapper.readValue(content, ExplicitCrowdSensingMessage.class);
-            	log.info("############# DEBUG MEX: {}", mex.toString());
-            }
             
             messages.add(mex);
             cm.acknowledge();

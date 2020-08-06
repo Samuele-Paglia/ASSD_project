@@ -1,21 +1,16 @@
 package it.unisannio.util;
 
-import java.util.Date;
-
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 public class ImplicitCrowdSensingMessage implements Message {
 	
 	private String uuidReceiver;
 	private String uuidSender;
 	private int rssi;
 	private int txPower;
-	@JsonSerialize(using = CustomDateSerializer.class)
-	private Date timestamp;
+	private long timestamp;
 	
 	public ImplicitCrowdSensingMessage() { }
 	
-	public ImplicitCrowdSensingMessage(String uuidReceiver, String uuidSender, int rssi, int txPower, Date timestamp) {
+	public ImplicitCrowdSensingMessage(String uuidReceiver, String uuidSender, int rssi, int txPower, long timestamp) {
 		this.uuidReceiver = uuidReceiver;
 		this.uuidSender = uuidSender;
 		this.rssi = rssi;
@@ -39,7 +34,7 @@ public class ImplicitCrowdSensingMessage implements Message {
 		return txPower;
 	}
 
-	public Date getTimestamp() {
+	public long getTimestamp() {
 		return timestamp;
 	}
 
