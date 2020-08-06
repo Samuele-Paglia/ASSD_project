@@ -15,6 +15,8 @@
 
 package it.unisannio.artemisourceconnector;
 
+import it.unisannio.util.ExplicitCrowdSensingMessage;
+import it.unisannio.util.ImplicitCrowdSensingMessage;
 import it.unisannio.util.Message;
 import org.apache.kafka.connect.data.Field;
 import org.apache.kafka.connect.data.Schema;
@@ -48,8 +50,20 @@ public final class SchemaMapping {
    */
   public static SchemaMapping create(String schemaName) throws Exception {
     SchemaBuilder builder = SchemaBuilder.struct().name(schemaName);
-//    builder.field("link", SchemaBuilder.INT64_SCHEMA);
-    builder.field("packet", Schema.STRING_SCHEMA);
+    if (schemaName.contains("ics")) {
+    	builder.field("uuidReceiver", Schema.STRING_SCHEMA);
+    	builder.field("uuidSender", Schema.STRING_SCHEMA);
+    	builder.field("rssi", Schema.INT32_SCHEMA);
+    	builder.field("txPower", Schema.INT32_SCHEMA);
+    	builder.field("timestamp", Schema.FLOAT64_SCHEMA);
+    } else if (schemaName.contains("ecs")) {
+    	log.info("############# DEBUG: SONO IN ECS");
+    	builder.field("id", Schema.STRING_SCHEMA);
+    	builder.field("type", Schema.STRING_SCHEMA);
+    	builder.field("longitude", Schema.FLOAT64_SCHEMA);
+    	builder.field("latitude", Schema.FLOAT64_SCHEMA);
+    	builder.field("timestamp", Schema.FLOAT64_SCHEMA);
+    }
     Schema schema = builder.build();
     return new SchemaMapping(schema);
   }
@@ -61,8 +75,12 @@ public final class SchemaMapping {
     assert schema != null;
     this.schema = schema;
     List<FieldSetter> fieldSetters = new ArrayList<>();
-//    fieldSetters.add(new FieldSetter(schema.field("link")));
-    fieldSetters.add(new FieldSetter(schema.field("packet")));
+    List<Field> fields = schema.fields();
+    for (Field field : fields) {
+    	log.info("############# DEBUG: {}", field.name());
+    	fieldSetters.add(new FieldSetter(field));
+    }
+    log.info("#################### " + fieldSetters.toString() + " ####################");
     this.fieldSetters = Collections.unmodifiableList(fieldSetters);
   }
 
@@ -113,13 +131,44 @@ public final class SchemaMapping {
      * @throws IOException  if there is an error accessing a streaming value from the result set
      */
     void setField(Struct struct, Message m) throws Exception, IOException {
-      if(field.name().equals("packet")) {
-        log.info("FIELD Packet {}", m.getPacket());
-        struct.put(field, m.getPacket());
-      } else{
-        log.info("##### FIELD Link, else statement #####");
-//        struct.put(field, m.getLink());
-      }
+    	if (m instanceof ImplicitCrowdSensingMessage) {
+    		switch (field.name()) {
+	    		case "uuidReceiver":
+	    			struct.put(field, ((ImplicitCrowdSensingMessage) m).getUuidReceiver());
+	    	        break;
+	    		case "uuidSender":
+	    			struct.put(field, ((ImplicitCrowdSensingMessage) m).getUuidSender());
+	    			break;
+	    		case "rssi":
+	    			struct.put(field, ((ImplicitCrowdSensingMessage) m).getRssi());
+	    			break;
+	    		case "txPower":
+	    			struct.put(field, ((ImplicitCrowdSensingMessage) m).getTxPower());
+	    			break;
+	    		case "timestamp":
+	    			struct.put(field, ((ImplicitCrowdSensingMessage) m).getTimestamp());
+	    			break;
+    		}
+    	} else if (m instanceof ExplicitCrowdSensingMessage) {
+    		switch (field.name()) {
+	    		case "id":
+	    			struct.put(field, ((ExplicitCrowdSensingMessage) m).getId());
+	    			break;
+	    		case "type":
+	    			struct.put(field, ((ExplicitCrowdSensingMessage) m).getType());
+	    			break;
+	    		case "longitude":
+	    			struct.put(field, ((ExplicitCrowdSensingMessage) m).getLongitude());
+	    			break;
+	    		case "latitude":
+	    			struct.put(field, ((ExplicitCrowdSensingMessage) m).getLatitude());
+	    			break;
+	    		case "timestamp":
+	    			struct.put(field, ((ExplicitCrowdSensingMessage) m).getTimestamp().toString());
+	    			break;
+    		}
+    	}
+
     }
 
     @Override

@@ -12,6 +12,7 @@ import it.unisannio.assd.project.util.CustomDateSerializer;
 public class ExplicitCrowdSensingMessage {
 	
 	private String id;
+	private String type;
 	@JsonAlias("long")
 	private double longitude;
 	@JsonAlias("lat")
@@ -21,8 +22,9 @@ public class ExplicitCrowdSensingMessage {
 	
 	public ExplicitCrowdSensingMessage() { }
 
-	public ExplicitCrowdSensingMessage(String id, double longitude, double latitude, Date timestamp) {
+	public ExplicitCrowdSensingMessage(String id, String type, double longitude, double latitude, Date timestamp) {
 		this.id = id;
+		this.type = type;
 		this.longitude = longitude;
 		this.latitude = latitude;
 		this.timestamp = timestamp;
@@ -30,6 +32,10 @@ public class ExplicitCrowdSensingMessage {
 
 	public String getId() {
 		return id;
+	}
+
+	public String getType() {
+		return type;
 	}
 
 	public double getLongitude() {
@@ -46,8 +52,8 @@ public class ExplicitCrowdSensingMessage {
 
 	@Override
 	public String toString() {
-		return "ExplicitCrowdSensingMessage [id=" + id + ", longitude=" + longitude + ", latitude=" + latitude
-				+ ", timestamp=" + timestamp + "]";
+		return "ExplicitCrowdSensingMessage [id=" + id + ", type=" + type + ", longitude=" + longitude + ", latitude="
+				+ latitude + ", timestamp=" + timestamp + "]";
 	}
 	
 }

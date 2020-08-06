@@ -16,14 +16,12 @@ public class ImplicitCrowdSensingMessage {
 	private String uuidSender;
 	private int rssi;
 	private int txPower;
-	private float proximityIndex;
 	@JsonSerialize(using = CustomDateSerializer.class)
 	private Date timestamp;
 	
 	public ImplicitCrowdSensingMessage() { }
 	
 	public ImplicitCrowdSensingMessage(String uuidReceiver, String uuidSender, int rssi, int txPower, Date timestamp) {
-		super();
 		this.uuidReceiver = uuidReceiver;
 		this.uuidSender = uuidSender;
 		this.rssi = rssi;
@@ -46,14 +44,6 @@ public class ImplicitCrowdSensingMessage {
 	public int getTxPower() {
 		return txPower;
 	}
-//	TODO: Maybe to delete. Move the proximity index calculus in the stream processor
-	public void calculateProximityIndex() {
-		this.proximityIndex = this.rssi * this.txPower;
-	}
-
-	public float getProximityIndex() {
-		return proximityIndex;
-	}
 
 	public Date getTimestamp() {
 		return timestamp;
@@ -62,8 +52,7 @@ public class ImplicitCrowdSensingMessage {
 	@Override
 	public String toString() {
 		return "ImplicitCrowdSensingMessage [uuidReceiver=" + uuidReceiver + ", uuidSender=" + uuidSender + ", rssi="
-				+ rssi + ", txPower=" + txPower + ", proximityIndex=" + proximityIndex + ", timestamp=" + timestamp
-				+ "]";
-	}	
+				+ rssi + ", txPower=" + txPower + ", timestamp=" + timestamp + "]";
+	}
 	
 }

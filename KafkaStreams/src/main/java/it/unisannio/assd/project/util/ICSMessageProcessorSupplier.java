@@ -28,7 +28,6 @@ public class ICSMessageProcessorSupplier implements ProcessorSupplier<String, St
 			ObjectMapper objectMapper = new ObjectMapper();
 			try {
 				ImplicitCrowdSensingMessage message = objectMapper.readValue(value, ImplicitCrowdSensingMessage.class);
-				message.calculateProximityIndex();
 				FilterProvider filters = new SimpleFilterProvider().addFilter(
 			        "parametersFilter", 
 			        SimpleBeanPropertyFilter.serializeAllExcept("rssi", "txPower"));

@@ -1,5 +1,9 @@
 
-import org.eclipse.paho.client.mqttv3.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 
@@ -7,12 +11,14 @@ public class Client {
 
     public static void main(String[] args) throws Exception {
     	
-    	final String brokerURI   = "tcp://172.18.10.145:30040";
+//    	final String brokerURI   = "tcp://172.18.10.145:30040";
+    	final String brokerURI   = "tcp://127.0.0.1:61616";
+    	
     	
     	MqttClient client = new MqttClient( 
     			brokerURI, // URI 
-//    			"samu123",
-    			MqttClient.generateClientId(), // ClientId 
+    			"samu",
+//    			MqttClient.generateClientId(), // ClientId 
     		    new MemoryPersistence()); // Persistence
     	
     	MqttConnectOptions options = new MqttConnectOptions();
@@ -21,12 +27,20 @@ public class Client {
     	client.connect(options);
     	
     	if (client.isConnected())
-    		System.out.println("Client connected!");
+    		System.out.println("Client connected! ");
     	
-    	String topic = "kafkaTestMongodb";
-    	String content = "Si va a Berlino Beppe! Si va a Berlino Beppe! Si va a Berlino Beppe!";
+    	String topic = "ecs-topic";
+    	long date = new Date().getTime();
+    	
+    	String content = "{\"id\": \"ADNd345DfdDAF34AD347hHgNd345DfdDAFT3\", \"type\": \"device\", \"long\" : \"-73.85607\", \"lat\": \"41.848447\", \"timestamp\" : \"" + date + "\" }";
+//    	String topic = "ics-topic";
+//    	String content = "{\"uuidReceiver\": \"1b1ace19-805c-bce1-9d8a-78cbbd1dcbcb\", \"uuidSender\": \"4edb83dd-1ecc-6472-cf6e-21ed82bade69\", \"rssi\": -79, \"txPower\": -59, \"timestamp\": 1595258141198}";
+//
+
+    	
+    	
     	int qos = 1;
-//    	client.subscribe(topic);
+    	client.subscribe(topic);
 //    	class MqttPostPropertyMessageListener implements IMqttMessageListener {
 //            public void messageArrived(String var1, MqttMessage var2) throws Exception {
 //                System.out.println("reply topic  : " + var1);
@@ -49,8 +63,6 @@ public class Client {
     	client.disconnect();
     	while(client.isConnected());
 //    	client.close();
-        
-
 
 
     }

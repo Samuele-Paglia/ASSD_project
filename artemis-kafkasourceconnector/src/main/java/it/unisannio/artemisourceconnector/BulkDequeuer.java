@@ -1,10 +1,11 @@
 package it.unisannio.artemisourceconnector;
 
-import it.unisannio.util.ArtemisProvider;
-import it.unisannio.util.Message;
-import it.unisannio.util.TopicBuilder;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
 
-import org.apache.activemq.artemis.api.core.ActiveMQBuffer;
 import org.apache.activemq.artemis.api.core.SimpleString;
 import org.apache.activemq.artemis.api.core.client.ClientMessage;
 import org.apache.activemq.artemis.api.core.client.ClientRequestor;
@@ -17,13 +18,14 @@ import org.apache.kafka.connect.source.SourceRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.netty.buffer.ByteBuf;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
+import io.netty.buffer.ByteBuf;
+import it.unisannio.util.ArtemisProvider;
+import it.unisannio.util.ExplicitCrowdSensingMessage;
+import it.unisannio.util.ImplicitCrowdSensingMessage;
+import it.unisannio.util.Message;
+import it.unisannio.util.TopicBuilder;
 
 public class BulkDequeuer extends Dequeuer {
     private static final Logger log = LoggerFactory.getLogger(BulkDequeuer.class);
@@ -64,9 +66,18 @@ public class BulkDequeuer extends Dequeuer {
             while (buffer.isReadable())
             	chars[a++] = (char) buffer.readByte();
             String content = new String(chars);
-            log.info("################################### " + content + " ###################################");
-            Message m = new Message(content);
-            messages.add(m);
+//            log.info("################################### " + content + " ###################################");
+            Message mex = null;
+            ObjectMapper objectMapper = new ObjectMapper();
+            if (queueName.contains("ics"))
+            	mex = objectMapper.readValue(content, ImplicitCrowdSensingMessage.class);
+            else if (queueName.contains("ecs")) {
+            	log.info("############# DEBUG: SONO IN BULKDEQ - ECS");
+            	mex = objectMapper.readValue(content, ExplicitCrowdSensingMessage.class);
+            	log.info("############# DEBUG MEX: {}", mex.toString());
+            }
+            
+            messages.add(mex);
             cm.acknowledge();
         }
         clientSession.commit();

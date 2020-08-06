@@ -53,13 +53,12 @@ abstract class Dequeuer implements Comparable<Dequeuer> {
     }
 
     public void maybeStartQuery(ClientSession clientSession) throws Exception {
-    	log.info("Check maybe query!!!!!!!!!!!!!!!!!!!!!!!!!");
         if (messages == null) {
-        	log.info("Check if maybe query!!!!!!!!!!!!!!!!!!!!!!!!!");
             this.clientSession = clientSession;
             consumer = getOrCreateConsumer(clientSession);
             messages = dequeue();
             schemaMapping = SchemaMapping.create(queueName);
+            log.info("###################################### Check queue name: {}", queueName);
         }
     }
 

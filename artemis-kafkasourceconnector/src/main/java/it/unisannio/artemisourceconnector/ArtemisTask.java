@@ -106,17 +106,13 @@ public class ArtemisTask extends SourceTask {
       try {
         log.info("Checking for next block of results from {}", dequeuer.toString());
         dequeuer.maybeStartQuery(cachedClientSessionProvider.getClientSession());
-        log.info("Prova 1");
         int batchMaxMsgs = config.getInt(ArtemisTaskConfig.BATCH_MAX_MSGS_CONFIG);
         boolean hadNext = true;
-        log.info("Prova 2");
         while (results.size() < batchMaxMsgs && (hadNext = dequeuer.next()))
           results.add(dequeuer.extractRecord());
-        log.info("Prova 3");
         if (!hadNext)
           // If we finished processing the results from the current query, we can reset and send the dequeuer to the tail of the queue
           resetAndRequeueHead(dequeuer);
-        log.info("Prova 4");
         if (results.isEmpty()) {
           log.info("No updates for {}", dequeuer.toString());
           continue;
