@@ -37,8 +37,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>it.unisannio.assd.project.kafkaStreams.ECSMessageModifier</mainClass>
-							<mainClass>it.unisannio.assd.project.kafkaStreams.ICSMessageModifier</mainClass>
+							<mainClass>it.unisannio.assd.project.kafkaStreams.MessageModifier</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

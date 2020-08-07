@@ -14,12 +14,11 @@ public class JSONmessageModifier {
 	static String bootstrapServers = "localhost:9092";
 	static String inputTopic = "input-topic";
 	static String outputTopic = "output-topic";
-	static Properties config = getConfig();
 	
-	private static Properties getConfig(){
+	public static Properties getConfig(){
         Properties streamsConfiguration = new Properties();
-		streamsConfiguration.put(StreamsConfig.APPLICATION_ID_CONFIG, "json-message-modifier-example");
-		streamsConfiguration.put(StreamsConfig.CLIENT_ID_CONFIG, "json-message-modifier-example-client");
+		streamsConfiguration.put(StreamsConfig.APPLICATION_ID_CONFIG, "json-message-modifier");
+		streamsConfiguration.put(StreamsConfig.CLIENT_ID_CONFIG, "json-message-modifier-client-for-" + inputTopic);
 		streamsConfiguration.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
 		streamsConfiguration.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
 		streamsConfiguration.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());

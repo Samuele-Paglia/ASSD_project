@@ -9,24 +9,21 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import it.unisannio.assd.project.util.CustomDateSerializer;
 
 @JsonAppend(
-	    attrs = {
-	        @JsonAppend.Attr(value = "prova")
-	    }
-	)
-@JsonFilter("parametersFilter")
+		attrs = @JsonAppend.Attr(value = "proximityIndex")
+		)
+@JsonFilter("parametersFilterICS")
 public class ImplicitCrowdSensingMessage implements Message {
-	
+
 	private String uuidReceiver;
 	private String uuidSender;
 	private int rssi;
 	private int txPower;
 	@JsonSerialize(using = CustomDateSerializer.class)
 	private Date timestamp;
-	
+
 	public ImplicitCrowdSensingMessage() { }
 
 	public ImplicitCrowdSensingMessage(String uuidReceiver, String uuidSender, int rssi, int txPower, Date timestamp) {
-		super();
 		this.uuidReceiver = uuidReceiver;
 		this.uuidSender = uuidSender;
 		this.rssi = rssi;

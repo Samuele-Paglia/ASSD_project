@@ -53,10 +53,10 @@ public class ICSMessageProcessorSupplier implements ProcessorSupplier<String, St
 				ImplicitCrowdSensingMessage message = objectMapper.readValue(value, ImplicitCrowdSensingMessage.class);
 //				objectMapper.addMixIn(POJO.class, ImplicitCrowdSensingMessage.class);
 				FilterProvider filters = new SimpleFilterProvider().addFilter(
-			        "parametersFilter", 
+			        "parametersFilterICS", 
 			        SimpleBeanPropertyFilter.serializeAllExcept("rssi", "txPower"));
 				ObjectMapper anotherObjectMapper = new ObjectMapper();
-				String result = anotherObjectMapper.writer(filters).withAttribute("prova", "provola").writeValueAsString(message);
+				String result = anotherObjectMapper.writer(filters).withAttribute("proximityIndex", "3").writeValueAsString(message);
 			    System.out.println(result);
 //				String result = new ObjectMapper().writer(filters).writeValueAsString(message);
 			    context.forward(key, result);
