@@ -4,8 +4,10 @@ import java.util.regex.Pattern;
 
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.Topology;
+import org.apache.kafka.streams.processor.ProcessorSupplier;
 
 import it.unisannio.assd.project.util.ECSMessageProcessorSupplier;
+import it.unisannio.assd.project.util.ICSMessageProcessorSupplier;
 
 public class MessageModifier extends JSONmessageModifier {
 
@@ -19,12 +21,18 @@ public class MessageModifier extends JSONmessageModifier {
 		String sourceName = "sourceProcessor_" + inputTopic;
 		String processorName = "processor_" + inputTopic;
 		String sinkName = "sinkProcessor_" + inputTopic;
-		final Topology topologyECS = getTopology()
+		ProcessorSupplier<String, String> ps = null;
+		if (inputTopic.contains("ics"))
+			ps = new ICSMessageProcessorSupplier();
+		else if (inputTopic.contains("ecs"))
+			ps = new ECSMessageProcessorSupplier();
+				
+		final Topology topology = getTopology()
 				.addSource(sourceName, topicPattern)
-				.addProcessor(processorName, new ECSMessageProcessorSupplier(), sourceName)
+				.addProcessor(processorName, ps, sourceName)
 				.addSink(sinkName, outputTopic, processorName);
-		KafkaStreams streamsECS = startApp(topologyECS, getConfig());
-		Runtime.getRuntime().addShutdownHook(new Thread(streamsECS::close));
+		KafkaStreams streams = startApp(topology, getConfig());
+		Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
 	}
 
 }

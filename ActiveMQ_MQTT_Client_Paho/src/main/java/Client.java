@@ -16,7 +16,7 @@ public class Client {
     	
     	MqttClient client = new MqttClient( 
     			brokerURI, // URI 
-    			"samu",
+    			"mike",
 //    			MqttClient.generateClientId(), // ClientId 
     		    new MemoryPersistence()); // Persistence
     	
