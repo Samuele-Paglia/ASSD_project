@@ -3,23 +3,34 @@ package it.unisannio.assd.project.domain;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import it.unisannio.assd.project.util.CustomDateSerializer;
+
+@JsonAppend(
+	    attrs = {
+	        @JsonAppend.Attr(value = "prova")
+	    }
+	)
 @JsonFilter("parametersFilter")
 public class ImplicitCrowdSensingMessage implements Message {
 	
 	private String uuidReceiver;
 	private String uuidSender;
-	private double proximityIndex;
-//	@JsonSerialize(using = CustomDateSerializer.class)
+	private int rssi;
+	private int txPower;
+	@JsonSerialize(using = CustomDateSerializer.class)
 	private Date timestamp;
 	
 	public ImplicitCrowdSensingMessage() { }
 
-	public ImplicitCrowdSensingMessage(String uuidReceiver, String uuidSender, double proximityIndex, Date timestamp) {
+	public ImplicitCrowdSensingMessage(String uuidReceiver, String uuidSender, int rssi, int txPower, Date timestamp) {
 		super();
 		this.uuidReceiver = uuidReceiver;
 		this.uuidSender = uuidSender;
-		this.proximityIndex = proximityIndex;
+		this.rssi = rssi;
+		this.txPower = txPower;
 		this.timestamp = timestamp;
 	}
 
@@ -31,8 +42,12 @@ public class ImplicitCrowdSensingMessage implements Message {
 		return uuidSender;
 	}
 
-	public double getProximityIndex() {
-		return proximityIndex;
+	public int getRssi() {
+		return rssi;
+	}
+
+	public int getTxPower() {
+		return txPower;
 	}
 
 	public Date getTimestamp() {
@@ -41,12 +56,8 @@ public class ImplicitCrowdSensingMessage implements Message {
 
 	@Override
 	public String toString() {
-		return "ImplicitCrowdSensingMessage [uuidReceiver=" + uuidReceiver + ", uuidSender=" + uuidSender
-				+ ", proximityIndex=" + proximityIndex + ", timestamp=" + timestamp + "]";
+		return "ImplicitCrowdSensingMessage [uuidReceiver=" + uuidReceiver + ", uuidSender=" + uuidSender + ", rssi="
+				+ rssi + ", txPower=" + txPower + ", timestamp=" + timestamp + "]";
 	}
-	
-	
-	
 
-	
 }

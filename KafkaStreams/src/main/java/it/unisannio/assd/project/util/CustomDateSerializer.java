@@ -12,7 +12,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
-public class CustomDateSerializer extends StdSerializer<Long> {
+public class CustomDateSerializer extends StdSerializer<Date> {
 	
 	private static final Logger log = LoggerFactory.getLogger(CustomDateSerializer.class);
 
@@ -24,15 +24,15 @@ public class CustomDateSerializer extends StdSerializer<Long> {
         this(null);
     }
  
-    public CustomDateSerializer(Class<Long> vc) {
+    public CustomDateSerializer(Class<Date> vc) {
         super(vc);
     }
     
     @Override
-    public void serialize (Long value, JsonGenerator gen, SerializerProvider arg2)
+    public void serialize (Date value, JsonGenerator gen, SerializerProvider arg2)
       throws IOException, JsonProcessingException {
-    	log.info("###### Debug: " + formatter.format(new Date(value)));
-    	gen.writeString(formatter.format(new Date(value)));
+    	log.info("###### Debug: " + formatter.format(value));
+    	gen.writeString(formatter.format(value));
     }
     
 }

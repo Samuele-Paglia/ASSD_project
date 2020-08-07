@@ -55,7 +55,7 @@ public final class SchemaMapping {
     	builder.field("uuidSender", Schema.STRING_SCHEMA);
     	builder.field("rssi", Schema.INT32_SCHEMA);
     	builder.field("txPower", Schema.INT32_SCHEMA);
-    	builder.field("timestamp", Schema.FLOAT64_SCHEMA);
+    	builder.field("timestamp", Schema.INT64_SCHEMA);
     } else if (schemaName.contains("ecs")) {
     	builder.field("id", Schema.STRING_SCHEMA);
     	builder.field("type", Schema.STRING_SCHEMA);

@@ -1,5 +1,7 @@
 package it.unisannio.assd.project.kafkaStreams;
 
+import java.util.regex.Pattern;
+
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.Topology;
 
@@ -12,9 +14,9 @@ public class ECSMessageModifier extends JSONmessageModifier {
 		inputTopic = args.length > 1 ? args[1] : inputTopic;
 		outputTopic = args.length > 2 ? args[2] : outputTopic;
 		System.out.println(args[0] + " --- " + args[1] + " --- " + args[2]);
-//		TODO: ECS suffix is for testing purpose
+		Pattern topicPattern = Pattern.compile(".*" + inputTopic);
 		final Topology topologyECS = getTopology()
-				.addSource("sourceProcessorECS", inputTopic)
+				.addSource("sourceProcessorECS", topicPattern)
 				.addProcessor("processorECS", new ECSMessageProcessorSupplier(), "sourceProcessorECS")
 				.addSink("sinkProcessorECS", outputTopic, "processorECS");
 		KafkaStreams streamsECS = startApp(topologyECS, config);
