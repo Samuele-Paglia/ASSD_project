@@ -155,13 +155,13 @@ spec:
           kafka-topics --create --zookeeper kafka-test-cp-zookeeper-headless:2181 --replication-factor 1 --partitions 1 --topic ics-topic --if-not-exists && \
           kafka-topics --create --zookeeper kafka-test-cp-zookeeper-headless:2181 --replication-factor 1 --partitions 1 --topic kafkaTestNeo4j --if-not-exists && \
           mkdir kafkaStreamsApp && cd kafkaStreamsApp && wget https://github.com/Samuele-Paglia/ASSD_project/raw/master/libs/kafkaStreams.jar && \
-          echo "Starting Kafka Stream Applications..." && \
-          java -cp kafkaStreams.jar it.unisannio.assd.project.kafkaStreams.MessageModifier localhost:9092 ecs-topic kafkaTestMongodb & \
-          java -cp kafkaStreams.jar it.unisannio.assd.project.kafkaStreams.MessageModifier localhost:9092 ics-topic kafkaTestNeo4j & \
           sleep infinity
         #lifecycle:
         #  postStart:
         #    exec:
+        #echo "Starting Kafka Stream Applications..." && \
+        #  java -cp kafkaStreams.jar it.unisannio.assd.project.kafkaStreams.MessageModifier localhost:9092 ecs-topic kafkaTestMongodb & \
+        #  java -cp kafkaStreams.jar it.unisannio.assd.project.kafkaStreams.MessageModifier localhost:9092 ics-topic kafkaTestNeo4j & \
         #      command: ["/bin/sh", "-c", "sleep 60", "kafka-topics --create --zookeeper kafka-test-cp-zookeeper-headless.prgr3.svc:2181 --replication-factor 1 --partitions 1 --topic input-topicECS", "kafka-topics --create --zookeeper kafka-test-cp-zookeeper-headless.prgr3.svc:2181 --replication-factor 1 --partitions 1 --topic output-topicECS"]
         volumeMounts:
         {{- if .Values.persistence.enabled }}
