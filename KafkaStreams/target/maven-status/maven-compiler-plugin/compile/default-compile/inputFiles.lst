@@ -1,8 +1,8 @@
 /home/samu/GitHub_repos/ASSD_project/KafkaStreams/src/main/java/it/unisannio/assd/project/util/ECSMessageProcessorSupplier.java
-/home/samu/GitHub_repos/ASSD_project/KafkaStreams/src/main/java/it/unisannio/assd/project/kafkaStreams/ICSMessageModifier.java
+/home/samu/GitHub_repos/ASSD_project/KafkaStreams/src/main/java/it/unisannio/assd/project/kafkaStreams/MessageModifier.java
+/home/samu/GitHub_repos/ASSD_project/KafkaStreams/src/main/java/it/unisannio/assd/project/domain/Message.java
 /home/samu/GitHub_repos/ASSD_project/KafkaStreams/src/main/java/it/unisannio/assd/project/domain/ImplicitCrowdSensingMessage.java
 /home/samu/GitHub_repos/ASSD_project/KafkaStreams/src/main/java/it/unisannio/assd/project/domain/ExplicitCrowdSensingMessage.java
 /home/samu/GitHub_repos/ASSD_project/KafkaStreams/src/main/java/it/unisannio/assd/project/util/ICSMessageProcessorSupplier.java
 /home/samu/GitHub_repos/ASSD_project/KafkaStreams/src/main/java/it/unisannio/assd/project/kafkaStreams/JSONmessageModifier.java
-/home/samu/GitHub_repos/ASSD_project/KafkaStreams/src/main/java/it/unisannio/assd/project/kafkaStreams/ECSMessageModifier.java
 /home/samu/GitHub_repos/ASSD_project/KafkaStreams/src/main/java/it/unisannio/assd/project/util/CustomDateSerializer.java

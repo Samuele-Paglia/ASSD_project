@@ -149,13 +149,15 @@ spec:
           export KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://${POD_NAME}.{{ template "cp-kafka.fullname" . }}-headless.${POD_NAMESPACE}:9092{{ include "cp-kafka.configuration.advertised.listeners" . }} && \
           exec /etc/confluent/docker/run & \
           sleep 20 && \
+          echo "Creating topics..." && \
           kafka-topics --create --zookeeper kafka-test-cp-zookeeper-headless:2181 --replication-factor 1 --partitions 1 --topic ecs-topic --if-not-exists && \
           kafka-topics --create --zookeeper kafka-test-cp-zookeeper-headless:2181 --replication-factor 1 --partitions 1 --topic kafkaTestMongodb --if-not-exists && \
           kafka-topics --create --zookeeper kafka-test-cp-zookeeper-headless:2181 --replication-factor 1 --partitions 1 --topic ics-topic --if-not-exists && \
           kafka-topics --create --zookeeper kafka-test-cp-zookeeper-headless:2181 --replication-factor 1 --partitions 1 --topic kafkaTestNeo4j --if-not-exists && \
           mkdir kafkaStreamsApp && cd kafkaStreamsApp && wget https://github.com/Samuele-Paglia/ASSD_project/raw/master/libs/kafkaStreams.jar && \
-          java -cp kafkaStreams.jar it.unisannio.assd.project.kafkaStreams.ECSMessageModifier localhost:9092 ecs-topic kafkaTestMongodb & \
-          java -cp kafkaStreams.jar it.unisannio.assd.project.kafkaStreams.ICSMessageModifier localhost:9092 ics-topic kafkaTestNeo4j & \
+          echo "Starting Kafka Stream Applications..." && \
+          java -cp kafkaStreams.jar it.unisannio.assd.project.kafkaStreams.MessageModifier localhost:9092 ecs-topic kafkaTestMongodb & \
+          java -cp kafkaStreams.jar it.unisannio.assd.project.kafkaStreams.MessageModifier localhost:9092 ics-topic kafkaTestNeo4j & \
           sleep infinity
         #lifecycle:
         #  postStart:

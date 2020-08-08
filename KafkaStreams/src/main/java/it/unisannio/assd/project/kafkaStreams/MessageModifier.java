@@ -25,8 +25,7 @@ public class MessageModifier extends JSONmessageModifier {
 		if (inputTopic.contains("ics"))
 			ps = new ICSMessageProcessorSupplier();
 		else if (inputTopic.contains("ecs"))
-			ps = new ECSMessageProcessorSupplier();
-				
+			ps = new ECSMessageProcessorSupplier();	
 		final Topology topology = getTopology()
 				.addSource(sourceName, topicPattern)
 				.addProcessor(processorName, ps, sourceName)
