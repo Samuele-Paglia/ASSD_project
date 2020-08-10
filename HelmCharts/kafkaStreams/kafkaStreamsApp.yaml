@@ -15,8 +15,6 @@ spec:
           mkdir kafkaStreamsApp
           cd kafkaStreamsApp
           wget https://github.com/Samuele-Paglia/ASSD_project/raw/master/libs/kafkaStreams.jar
-          sleep 1000
-          java -cp kafkaStreams.jar it.unisannio.assd.project.kafkaStreams.MessageModifier kafka-test-cp-kafka-headless:9092 ecs-topic kafkaTestMongodb &
-          java -cp kafkaStreams.jar it.unisannio.assd.project.kafkaStreams.MessageModifier kafka-test-cp-kafka-headless:9092 ics-topic kafkaTestNeo4j &
-          sleep infinity
+          java -cp kafkaStreams.jar it.unisannio.assd.project.kafkaStreams.MessageModifier kafka-test-cp-kafka-headless:9092 ecs-topic prova1 &
+          java -cp kafkaStreams.jar it.unisannio.assd.project.kafkaStreams.MessageModifier kafka-test-cp-kafka-headless:9092 ics-topic prova2
         

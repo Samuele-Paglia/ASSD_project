@@ -24,7 +24,7 @@ public class MessageModifier extends JSONmessageModifier {
 		short replicationFactor = args.length > 4 ? Short.parseShort(args[4]) : (short) 3;
 		log.info("Creating topic {}", outputTopic);
 		TopicCreator.setBootstrapServers(bootstrapServers);
-		TopicCreator.createTopic(outputTopic, numPartitions, replicationFactor); 
+		TopicCreator.createTopic(outputTopic, numPartitions, replicationFactor);
 		Pattern topicPattern = Pattern.compile(".*" + inputTopic);
 		String sourceName = "sourceProcessor_" + inputTopic;
 		String processorName = "processor_" + inputTopic;

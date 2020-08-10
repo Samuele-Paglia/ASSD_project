@@ -5,6 +5,12 @@
 	<groupId>ActiveMQ_MQTT_Client</groupId>
 	<artifactId>ActiveMQ_MQTT_Client</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<repositories>
+		<repository>
+			<id>untori</id>
+			<url>https://dl.bintray.com/untori/untori</url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>org.eclipse.paho</groupId>
@@ -20,6 +26,11 @@
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-core</artifactId>
             <version>5.7.0</version>
+        </dependency>
+        <dependency>
+        	<groupId>it.unisannio.assd.untori</groupId>
+        	<artifactId>tkn</artifactId>
+        	<version>0.0.1-beta-1</version>
         </dependency>
 	</dependencies>
 </project>
