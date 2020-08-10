@@ -16,7 +16,7 @@ public class Client {
     	
     	MqttClient client = new MqttClient( 
     			brokerURI, // URI 
-    			"samu",
+    			"puppamelo",
 //    			MqttClient.generateClientId(), // ClientId 
     		    new MemoryPersistence()); // Persistence
     	
@@ -33,11 +33,11 @@ public class Client {
     	String topic = "ecs-topic";   	
     	String content = "{\"id\": \"ADNd345DfdDAF34AD347hHgNd345DfdDAFT3\", \"type\": \"device\", \"long\" : \"-73.85607\", \"lat\": \"41.848447\", \"timestamp\" : \"" + date + "\" }";
 //    	String topic = "ics-topic";
-//    	String content = "{\"uuidReceiver\": \"1b1ace19-805c-bce1-9d8a-78cbbd1dcbcb\", \"uuidSender\": \"4edb83dd-1ecc-6472-cf6e-21ed82bade69\", \"rssi\": -79, \"txPower\": -59, \"timestamp\" : \"" + date + "\" }";
+//    	String content = "{\"uuidReceiver\": \"1b1ace19-805c-bce1-9d8b-79cbbd1dcbca\", \"uuidSender\": \"4edb83dd-1ecc-6473-cf6e-21fd82bade67\", \"rssi\": -79, \"txPower\": -59, \"timestamp\" : \"" + date + "\" }";
     	
     	
     	int qos = 1;
-    	client.subscribe(topic);
+//    	client.subscribe(topic);
 //    	class MqttPostPropertyMessageListener implements IMqttMessageListener {
 //            public void messageArrived(String var1, MqttMessage var2) throws Exception {
 //                System.out.println("reply topic  : " + var1);

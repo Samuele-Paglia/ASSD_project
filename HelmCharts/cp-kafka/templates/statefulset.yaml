@@ -147,22 +147,7 @@ spec:
         - |
           export KAFKA_BROKER_ID=${HOSTNAME##*-} && \
           export KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://${POD_NAME}.{{ template "cp-kafka.fullname" . }}-headless.${POD_NAMESPACE}:9092{{ include "cp-kafka.configuration.advertised.listeners" . }} && \
-          exec /etc/confluent/docker/run & \
-          sleep 20 && \
-          echo "Creating topics..." && \
-          kafka-topics --create --zookeeper kafka-test-cp-zookeeper-headless:2181 --replication-factor 1 --partitions 1 --topic ecs-topic --if-not-exists && \
-          kafka-topics --create --zookeeper kafka-test-cp-zookeeper-headless:2181 --replication-factor 1 --partitions 1 --topic kafkaTestMongodb --if-not-exists && \
-          kafka-topics --create --zookeeper kafka-test-cp-zookeeper-headless:2181 --replication-factor 1 --partitions 1 --topic ics-topic --if-not-exists && \
-          kafka-topics --create --zookeeper kafka-test-cp-zookeeper-headless:2181 --replication-factor 1 --partitions 1 --topic kafkaTestNeo4j --if-not-exists && \
-          mkdir kafkaStreamsApp && cd kafkaStreamsApp && wget https://github.com/Samuele-Paglia/ASSD_project/raw/master/libs/kafkaStreams.jar && \
-          sleep infinity
-        #lifecycle:
-        #  postStart:
-        #    exec:
-        #echo "Starting Kafka Stream Applications..." && \
-        #  java -cp kafkaStreams.jar it.unisannio.assd.project.kafkaStreams.MessageModifier localhost:9092 ecs-topic kafkaTestMongodb & \
-        #  java -cp kafkaStreams.jar it.unisannio.assd.project.kafkaStreams.MessageModifier localhost:9092 ics-topic kafkaTestNeo4j & \
-        #      command: ["/bin/sh", "-c", "sleep 60", "kafka-topics --create --zookeeper kafka-test-cp-zookeeper-headless.prgr3.svc:2181 --replication-factor 1 --partitions 1 --topic input-topicECS", "kafka-topics --create --zookeeper kafka-test-cp-zookeeper-headless.prgr3.svc:2181 --replication-factor 1 --partitions 1 --topic output-topicECS"]
+          exec /etc/confluent/docker/run
         volumeMounts:
         {{- if .Values.persistence.enabled }}
           {{- $disksPerBroker := .Values.persistence.disksPerBroker | int }}
