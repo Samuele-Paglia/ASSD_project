@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import it.unisannio.assd.project.util.ECSMessageProcessorSupplier;
 import it.unisannio.assd.project.util.ICSMessageProcessorSupplier;
+import it.unisannio.assd.project.util.TCNMessageProcessorSupplier;
 import it.unisannio.assd.project.util.TopicCreator;
 
 public class MessageModifier extends JSONmessageModifier {
@@ -21,7 +22,7 @@ public class MessageModifier extends JSONmessageModifier {
 		inputTopic = args.length > 1 ? args[1] : inputTopic;
 		outputTopic = args.length > 2 ? args[2] : outputTopic;
 		int numPartitions = args.length > 3 ? Integer.parseInt(args[3]) : 3;
-		short replicationFactor = args.length > 4 ? Short.parseShort(args[4]) : (short) 3;
+		short replicationFactor = args.length > 4 ? Short.parseShort(args[4]) : (short) 1;
 		log.info("Creating topic {}", outputTopic);
 		TopicCreator.setBootstrapServers(bootstrapServers);
 		TopicCreator.createTopic(outputTopic, numPartitions, replicationFactor);
@@ -33,16 +34,17 @@ public class MessageModifier extends JSONmessageModifier {
 		if (inputTopic.contains("ics"))
 			ps = new ICSMessageProcessorSupplier();
 		else if (inputTopic.contains("ecs"))
-			ps = new ECSMessageProcessorSupplier();	
+			ps = new ECSMessageProcessorSupplier();
+		else if (inputTopic.contains("tcn"))
+			ps = new TCNMessageProcessorSupplier();	
 		final Topology topology = getTopology()
 				.addSource(sourceName, topicPattern)
 				.addProcessor(processorName, ps, sourceName)
 				.addSink(sinkName, outputTopic, processorName);
-		log.info("Starting Kafka Streams Application...\n"
-				+ "\t- Bootstrap server: {}"
-				+ "\t- Source topics: all topics ending with {}"
-				+ "\t- Destination topic: {}",
-				bootstrapServers, inputTopic, outputTopic);
+		log.info("Starting Kafka Streams Application..."
+				+ "\n\t- Bootstrap server: " + bootstrapServers
+				+ "\n\t- Source topics: all topics ending with " + inputTopic
+				+ "\n\t- Destination topic: " + outputTopic);
 		KafkaStreams streams = startApp(topology, getConfig());
 		Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
 	}

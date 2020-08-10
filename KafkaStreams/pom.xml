@@ -5,7 +5,18 @@
 	<groupId>KafkaStreams</groupId>
 	<artifactId>KafkaStreams</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<repositories>
+		<repository>
+			<id>untori</id>
+			<url>https://dl.bintray.com/untori/untori</url>
+		</repository>
+	</repositories>
 	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.6.1</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.kafka</groupId>
 			<artifactId>kafka-streams</artifactId>
@@ -15,6 +26,11 @@
 			<groupId>org.apache.kafka</groupId>
 			<artifactId>kafka-clients</artifactId>
 			<version>2.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>it.unisannio.assd.untori</groupId>
+			<artifactId>tkn</artifactId>
+			<version>0.0.1-beta-1</version>
 		</dependency>
 	</dependencies>
 	<build>

@@ -1,7 +1,7 @@
 package it.unisannio.artemisourceconnector;
 
 import it.unisannio.util.ArtemisProvider;
-import it.unisannio.util.Message;
+import it.unisannio.domain.Message;
 import org.apache.activemq.artemis.api.core.ActiveMQException;
 import org.apache.activemq.artemis.api.core.client.ClientConsumer;
 import org.apache.activemq.artemis.api.core.client.ClientSession;

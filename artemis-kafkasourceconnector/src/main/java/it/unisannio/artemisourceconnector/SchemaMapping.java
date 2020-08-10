@@ -15,20 +15,20 @@
 
 package it.unisannio.artemisourceconnector;
 
-import it.unisannio.util.ExplicitCrowdSensingMessage;
-import it.unisannio.util.ImplicitCrowdSensingMessage;
-import it.unisannio.util.Message;
-import org.apache.kafka.connect.data.Field;
-import org.apache.kafka.connect.data.Schema;
-import org.apache.kafka.connect.data.SchemaBuilder;
-import org.apache.kafka.connect.data.Struct;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.apache.kafka.connect.data.Field;
+import org.apache.kafka.connect.data.Schema;
+import org.apache.kafka.connect.data.SchemaBuilder;
+import org.apache.kafka.connect.data.Struct;
+
+import it.unisannio.domain.ExplicitCrowdSensingMessage;
+import it.unisannio.domain.GenericMessage;
+import it.unisannio.domain.ImplicitCrowdSensingMessage;
+import it.unisannio.domain.Message;
 
 /**
  * A mapping from a result set into a {@link Schema}. This mapping contains an array of {@link
@@ -40,7 +40,7 @@ import java.util.List;
  * function.
  */
 public final class SchemaMapping {
-  private static final Logger log = LoggerFactory.getLogger(SchemaMapping.class);
+//  private static final Logger log = LoggerFactory.getLogger(SchemaMapping.class);
   /**
    * Convert the result set into a {@link Schema}.
    *
@@ -62,7 +62,8 @@ public final class SchemaMapping {
     	builder.field("longitude", Schema.FLOAT64_SCHEMA);
     	builder.field("latitude", Schema.FLOAT64_SCHEMA);
     	builder.field("timestamp", Schema.INT64_SCHEMA);
-    }
+    } else
+    	builder.field("payload", Schema.STRING_SCHEMA);
     Schema schema = builder.build();
     return new SchemaMapping(schema);
   }
@@ -163,8 +164,8 @@ public final class SchemaMapping {
 	    			struct.put(field, ((ExplicitCrowdSensingMessage) m).getTimestamp());
 	    			break;
     		}
-    	}
-
+    	} else
+    		struct.put(field.name(), ((GenericMessage) m).getPayload());
     }
 
     @Override

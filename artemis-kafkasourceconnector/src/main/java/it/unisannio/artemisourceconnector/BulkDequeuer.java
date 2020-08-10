@@ -22,9 +22,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.netty.buffer.ByteBuf;
 import it.unisannio.util.ArtemisProvider;
-import it.unisannio.util.ExplicitCrowdSensingMessage;
-import it.unisannio.util.ImplicitCrowdSensingMessage;
-import it.unisannio.util.Message;
+import it.unisannio.domain.ExplicitCrowdSensingMessage;
+import it.unisannio.domain.GenericMessage;
+import it.unisannio.domain.ImplicitCrowdSensingMessage;
+import it.unisannio.domain.Message;
 import it.unisannio.util.TopicBuilder;
 
 public class BulkDequeuer extends Dequeuer {
@@ -73,7 +74,8 @@ public class BulkDequeuer extends Dequeuer {
             	mex = objectMapper.readValue(content, ImplicitCrowdSensingMessage.class);
             else if (queueName.contains("ecs"))
             	mex = objectMapper.readValue(content, ExplicitCrowdSensingMessage.class);
-            
+            else
+            	mex = new GenericMessage(content);
             messages.add(mex);
             cm.acknowledge();
         }

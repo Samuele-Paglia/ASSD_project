@@ -1,4 +1,4 @@
-package it.unisannio.util;
+package it.unisannio.domain;
 
 public class ImplicitCrowdSensingMessage implements Message {
 	
