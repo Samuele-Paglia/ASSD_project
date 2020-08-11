@@ -106,28 +106,29 @@ spec:
             - /bin/bash
             - -c
             - |
-              confluent-hub install --no-prompt hpgrahsl/kafka-connect-mongodb:1.4.0
-              echo \
-              {{ .Files.Get "MongoDB_sink.properties" | toString | squote | indent 14}} >> /usr/share/confluent-hub-components/hpgrahsl-kafka-connect-mongodb/etc/MongoDB_sink.properties
-              confluent-hub install --no-prompt neo4j/kafka-connect-neo4j:1.0.7
-              echo \
-              {{ .Files.Get "Neo4j_sink.properties" | toString | squote | indent 14}} >> /usr/share/confluent-hub-components/neo4j-kafka-connect-neo4j/etc/Neo4j_sink.properties
-              confluent-hub install --no-prompt confluentinc/connect-transforms:latest
               cd /usr/share/confluent-hub-components && mkdir artemis-connector
-              cd artemis-connector && mkdir etc && mkdir lib
-              echo \
-              {{ .Files.Get "Artemis_source.properties" | toString | squote | indent 14}} >> /usr/share/confluent-hub-components/artemis-connector/etc/Artemis_source.properties
-              cd lib
+              cd artemis-connector && mkdir etc && mkdir lib && cd lib
               wget https://github.com/Samuele-Paglia/ASSD_project/raw/master/libs/artemis_connector.jar
-              echo "bootstrap.servers=kafka-test-cp-kafka-headless.prgr3.svc:9092" >> /etc/kafka/connect-standalone.properties
-              echo "auto.create.topics.enable=false" >> /etc/kafka/connect-standalone.properties
+              confluent-hub install --no-prompt neo4j/kafka-connect-neo4j:1.0.7
               cd /usr/share/confluent-hub-components/neo4j-kafka-connect-neo4j/lib && rm kotlin-reflect-1.2.51.jar
               wget https://github.com/Samuele-Paglia/ASSD_project/raw/master/libs/kotlin-reflect-1.3.72.jar
+              confluent-hub install --no-prompt hpgrahsl/kafka-connect-mongodb:1.4.0
+              echo \
+              {{ .Files.Get "Artemis_source.properties" | toString | squote | indent 14}} >> /usr/share/confluent-hub-components/artemis-connector/etc/Artemis_source.properties
+              echo \
+              {{ .Files.Get "Neo4j_sink.properties" | toString | squote | indent 14}} >> /usr/share/confluent-hub-components/neo4j-kafka-connect-neo4j/etc/Neo4j_sink.properties
+              echo \
+              {{ .Files.Get "MongoDB_sink.properties" | toString | squote | indent 14}} >> /usr/share/confluent-hub-components/hpgrahsl-kafka-connect-mongodb/etc/MongoDB_sink.properties
+              echo \
+              {{ .Files.Get "MongoDB_sinkTypeC.properties" | toString | squote | indent 14}} >> /usr/share/confluent-hub-components/hpgrahsl-kafka-connect-mongodb/etc/MongoDB_sinkTypeC.properties
+              echo "bootstrap.servers=kafka-test-cp-kafka-headless.prgr3.svc:9092" >> /etc/kafka/connect-standalone.properties
+              echo "auto.create.topics.enable=false" >> /etc/kafka/connect-standalone.properties
               cd /etc/kafka
               connect-standalone connect-standalone.properties \
               /usr/share/confluent-hub-components/artemis-connector/etc/Artemis_source.properties \
+              /usr/share/confluent-hub-components/neo4j-kafka-connect-neo4j/etc/Neo4j_sink.properties \
               /usr/share/confluent-hub-components/hpgrahsl-kafka-connect-mongodb/etc/MongoDB_sink.properties \
-              /usr/share/confluent-hub-components/neo4j-kafka-connect-neo4j/etc/Neo4j_sink.properties
+              /usr/share/confluent-hub-components/hpgrahsl-kafka-connect-mongodb/etc/MongoDB_sinkTypeC.properties
               sleep infinity
         {{- if .Values.customEnv.CUSTOM_SCRIPT_PATH }}
           command:

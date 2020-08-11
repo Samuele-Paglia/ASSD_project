@@ -23,7 +23,6 @@ public class MessageModifier extends JSONmessageModifier {
 		outputTopic = args.length > 2 ? args[2] : outputTopic;
 		int numPartitions = args.length > 3 ? Integer.parseInt(args[3]) : 3;
 		short replicationFactor = args.length > 4 ? Short.parseShort(args[4]) : (short) 3;
-		log.info("Creating topic {}", outputTopic);
 		TopicCreator.setBootstrapServers(bootstrapServers);
 		TopicCreator.createTopic(outputTopic, numPartitions, replicationFactor);
 		Pattern topicPattern = Pattern.compile(".*" + inputTopic);

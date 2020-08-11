@@ -9,14 +9,19 @@ import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.CreateTopicsResult;
 import org.apache.kafka.clients.admin.ListTopicsResult;
 import org.apache.kafka.clients.admin.NewTopic;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TopicCreator {
+	
+	private static final Logger log = LoggerFactory.getLogger(TopicCreator.class);
 
 	private static String bootstrapServers = "localhost:9092";
 
 	public static void createTopic(String topicName,int numPartitions, short replicationFactor) {
 		try (AdminClient client = AdminClient.create(setConfig())) {
 			if (!topicExists(client, topicName)) {
+				log.info("Creating topic {}", topicName);
 				CreateTopicsResult result = client.createTopics(Arrays.asList(
 						new NewTopic(topicName, numPartitions, replicationFactor)
 						));
