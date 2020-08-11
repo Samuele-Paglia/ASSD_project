@@ -161,6 +161,21 @@ under the License.
                     <queue name="ExpiryQueue"/>
                 </anycast>
             </address>
+            <address name="ics-topic">
+                <anycast>
+                    <queue name="ics-topic"/>
+                </anycast>
+            </address>
+            <address name="ecs-topic">
+                <anycast>
+                    <queue name="ecs-topic"/>
+                </anycast>
+            </address>
+            <address name="tcn-topic">
+                <anycast>
+                    <queue name="tcn-topic"/>
+                </anycast>
+            </address>
         </addresses>
         <connectors>
             <connector name="prova-activemq-artemis-master-0">tcp://prova-activemq-artemis-master-0.prova-activemq-artemis-master.progetto2.svc.cluster.local:61616</connector>

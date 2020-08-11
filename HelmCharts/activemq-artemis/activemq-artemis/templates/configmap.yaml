@@ -104,6 +104,26 @@ data:
                 <queue name="ExpiryQueue" />
               </anycast>
             </address>
+            <address name="ics-topic">
+              <anycast>
+                <queue name="ics-topic" />
+              </anycast>
+            </address>
+            <address name="ecs-topic">
+              <anycast>
+                <queue name="ecs-topic" />
+              </anycast>
+            </address>
+            <address name="tcn-topic">
+              <anycast>
+                <queue name="tcn-topic" />
+              </anycast>
+            </address>
           </addresses>
         </core>
     </configuration>
+
+  configure.sh: |
+    set -e
+    echo Copying common configuration
+    cp /opt/configure/broker.xml /var/lib/artemis-instance/etc/broker1.xml

@@ -87,12 +87,17 @@ spec:
             port: core
           initialDelaySeconds: 10
           periodSeconds: 10
+        command: ["/bin/sh", "/opt/configure/configure.sh"]
         volumeMounts:
+        - name: etc
+          mountPath: /var/lib/artemis-instance/etc
         - name: data
           mountPath: /var/lib/artemis-instance/data
         - name: configure
           mountPath: /opt/configure
       volumes:
+      - name: etc
+        mountPath: /var/lib/artemis-instance/etc
       - name: configure
         configMap:
           name: {{ include "artemis.fullname" . }}-configure
