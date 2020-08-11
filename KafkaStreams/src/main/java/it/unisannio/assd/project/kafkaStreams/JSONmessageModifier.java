@@ -17,7 +17,7 @@ public class JSONmessageModifier {
 	
 	public static Properties getConfig(){
         Properties streamsConfiguration = new Properties();
-		streamsConfiguration.put(StreamsConfig.APPLICATION_ID_CONFIG, "json-message-modifier");
+		streamsConfiguration.put(StreamsConfig.APPLICATION_ID_CONFIG, "json-message-modifier-for-" + inputTopic);
 		streamsConfiguration.put(StreamsConfig.CLIENT_ID_CONFIG, "json-message-modifier-client-for-" + inputTopic);
 		streamsConfiguration.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
 		streamsConfiguration.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());

@@ -13,14 +13,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TopicCreator {
-
+	
 	private static final Logger log = LoggerFactory.getLogger(TopicCreator.class);
 
 	private static String bootstrapServers = "localhost:9092";
 
 	public static void createTopic(String topicName,int numPartitions, short replicationFactor) {
 		try (AdminClient client = AdminClient.create(setConfig())) {
-			if (!topicExists(topicName)) {
+			if (!topicExists(client, topicName)) {
 				log.info("Creating topic {}", topicName);
 				CreateTopicsResult result = client.createTopics(Arrays.asList(
 						new NewTopic(topicName, numPartitions, replicationFactor)
@@ -46,15 +46,13 @@ public class TopicCreator {
 		return properties;
 	}
 
-	private static boolean topicExists(String topicName) {
-		try (AdminClient client = AdminClient.create(setConfig())) {
-			ListTopicsResult topics = client.listTopics();
-			try {
-				Set<String> currentTopicList = topics.names().get();
-				return currentTopicList.contains(topicName);
-			} catch (InterruptedException | ExecutionException e) {
-				throw new IllegalStateException(e);
-			}
+	private static boolean topicExists(AdminClient client, String topicName) {
+		ListTopicsResult topics = client.listTopics();
+		try {
+			Set<String> currentTopicList = topics.names().get();
+			return currentTopicList.contains(topicName);
+		} catch (InterruptedException | ExecutionException e) {
+			throw new IllegalStateException(e);
 		}
 	}
 

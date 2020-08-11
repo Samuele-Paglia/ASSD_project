@@ -7,6 +7,8 @@ import org.apache.kafka.streams.processor.ProcessorSupplier;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import it.unisannio.assd.project.domain.TCNReport;
+
 public class TCNMessageProcessorSupplier implements ProcessorSupplier<String, String> {
 	
 public class TCNMessageProcessor implements Processor<String, String> {

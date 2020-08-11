@@ -1,8 +1,9 @@
-package it.unisannio.assd.project.util;
+package it.unisannio.assd.project.domain;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import it.unisannio.assd.project.util.Util;
 import it.unisannio.assd.tkn.key.ReportVerificationKey;
 import it.unisannio.assd.tkn.key.TemporaryContactKey;
 import it.unisannio.assd.tkn.key.TemporaryContactNumber;
