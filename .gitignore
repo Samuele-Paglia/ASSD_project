@@ -1,4 +1,5 @@
-artemis-kafkasourceconnector/target/
+**/target/
+**/.*
 **/.classpath
 **/.project
 bin/
