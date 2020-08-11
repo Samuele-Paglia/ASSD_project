@@ -1,7 +1,5 @@
 **/target
 **/.*
-**/.classpath
-**/.project
 bin/
 tmp/
 **/*.tmp
