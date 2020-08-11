@@ -45,7 +45,6 @@ public class TopicCreator {
 		ListTopicsResult topics = client.listTopics();
 		try {
 			Set<String> currentTopicList = topics.names().get();
-			System.out.println(currentTopicList);
 			return currentTopicList.contains(topicName);
 		} catch (InterruptedException | ExecutionException e) {
 			throw new IllegalStateException(e);

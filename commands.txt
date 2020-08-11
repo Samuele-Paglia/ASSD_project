@@ -4,7 +4,7 @@ cd /etc/kafka
 
 connect-standalone connect-standalone.properties /usr/share/confluent-hub-components/hpgrahsl-kafka-connect-mongodb/etc/MongoDB_sink.properties
 
-connect-distributed connect-distributed.properties
+connect-distributed connect-distributed.properties 
 
 ################################################################# Neo4J #################################################################
 
