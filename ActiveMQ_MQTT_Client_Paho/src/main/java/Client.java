@@ -1,6 +1,4 @@
 
-import java.util.Date;
-
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
@@ -10,8 +8,8 @@ public class Client {
 
     public static void main(String[] args) throws Exception {
     	
-//    	final String brokerURI   = "tcp://172.18.10.145:30040";
-    	final String brokerURI   = "tcp://127.0.0.1:61616";
+    	final String brokerURI   = "tcp://172.18.10.145:30040";
+//    	final String brokerURI   = "tcp://127.0.0.1:61616";
     	
     	
     	MqttClient client = new MqttClient( 
@@ -28,7 +26,7 @@ public class Client {
     	if (client.isConnected())
     		System.out.println("Client connected! ");
     	
-    	long date = new Date().getTime();
+//    	long date = new Date().getTime();
     	
 //    	String topic = "ecs-topic";   	
 //    	String content = "{\"id\": \"ADNd345DfdDAF34AD347hHgNd345DfdDAFT3\", \"type\": \"device\", \"long\" : \"-73.85607\", \"lat\": \"41.848447\", \"timestamp\" : \"" + date + "\" }";
@@ -64,7 +62,7 @@ public class Client {
 
     	client.disconnect();
     	while(client.isConnected());
-//    	client.close();
+    	client.close();
 
 
     }

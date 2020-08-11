@@ -45,16 +45,6 @@ set z.infected=event.infectedB merge (n)-[r:CONNECTED]-(z) on create set r.times
 
 call dbms.cluster.overview()
 
-
-
-          sleep 60 && \
-          echo "Creating topics..." && \
-          kafka-topics --create --zookeeper kafka-test-cp-zookeeper-headless:2181 --replication-factor 1 --partitions 1 --topic kafkaTestMongodb --if-not-exists && \
-          kafka-topics --create --zookeeper kafka-test-cp-zookeeper-headless:2181 --replication-factor 1 --partitions 1 --topic kafkaTestNeo4j --if-not-exists && \
-          mkdir kafkaStreamsApp && cd kafkaStreamsApp && wget https://github.com/Samuele-Paglia/ASSD_project/raw/master/libs/kafkaStreams.jar && \
-          java -cp kafkaStreams.jar it.unisannio.assd.project.kafkaStreams.MessageModifier localhost:9092 ecs-topic kafkaTestMongodb & java -cp kafkaStreams.jar it.unisannio.assd.project.kafkaStreams.MessageModifier localhost:9092 ics-topic kafkaTestNeo4j & \
-          sleep infinity
-
 kubectl apply -f file.yaml
 kubectl exec -it kafka-streams-app -- /bin/bash
 kubectl delete pod kafka-strems-app
