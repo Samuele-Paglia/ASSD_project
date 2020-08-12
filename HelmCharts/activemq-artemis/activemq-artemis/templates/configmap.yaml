@@ -125,5 +125,6 @@ data:
 
   configure.sh: |
     set -e
+    sleep 30
     echo Copying common configuration
-    cp /opt/configure/broker.xml /var/lib/artemis-instance/etc/broker1.xml
+    cp -f /opt/configure/broker.xml /var/lib/artemis-instance/etc/broker.xml

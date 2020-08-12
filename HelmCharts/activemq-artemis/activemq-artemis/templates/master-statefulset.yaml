@@ -87,7 +87,10 @@ spec:
             port: core
           initialDelaySeconds: 10
           periodSeconds: 10
-        command: ["/bin/sh", "/opt/configure/configure.sh"]
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "/opt/configure/configure.sh"]
         volumeMounts:
         - name: etc
           mountPath: /var/lib/artemis-instance/etc
