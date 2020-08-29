@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kafka-streams-app
+  labels:
+    app: kafka-streams-app
+spec:
+  containers:
+    - name: kafka-streams-app
+      image: openjdk:8-jdk-alpine
+      command:
+        - sh
+        - -c
+        - |
+          mkdir kafkaStreamsApp
+          cd kafkaStreamsApp
+          wget https://github.com/Samuele-Paglia/ASSD_project/raw/master/libs/kafkaStreams.jar
+          java -cp kafkaStreams.jar it.unisannio.assd.project.kafkaStreams.MessageModifier kafka-test-cp-kafka-headless:9092 tcn-topic kafkaTestMongodbTypeC
+          
+        

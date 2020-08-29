@@ -24,7 +24,6 @@ public class CachedClientSessionProvider implements ClientSessionProvider {
 
 	@Override
 	public synchronized ClientSession getClientSession() {
-		log.info("SONO QUI");
 		try {
 			if (clientsession == null)
 				newClientSession();

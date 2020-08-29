@@ -1,4 +1,4 @@
-package it.unisannio.assd.project.util;
+package it.unisannio.assd.project.kafkaStreams;
 
 import org.apache.kafka.streams.processor.Processor;
 import org.apache.kafka.streams.processor.ProcessorContext;
@@ -24,7 +24,7 @@ public class ICSMessageProcessorSupplier implements ProcessorSupplier<String, St
 		}
 		
 		private double calculateProximityIndex(int rssi, int txPower) {
-			return rssi * txPower;
+			return 10^((txPower - rssi)/20);
 		}
 		
 		@Override

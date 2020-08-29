@@ -1,4 +1,4 @@
-package it.unisannio.assd.project.util;
+package it.unisannio.assd.project.kafkaStreams;
 
 import org.apache.kafka.streams.processor.Processor;
 import org.apache.kafka.streams.processor.ProcessorContext;

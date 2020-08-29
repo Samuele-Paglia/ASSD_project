@@ -1,4 +1,6 @@
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import it.unisannio.assd.tkn.key.ReportVerificationKey;
 import it.unisannio.assd.tkn.key.TemporaryContactKey;
@@ -9,6 +11,12 @@ import it.unisannio.assd.tkn.report.ReportData;
 public class TCNTest {
 
 	public static void main(String[] args) {
+		
+		long time = 1595258141198L;
+		Date date = new Date(time);
+		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		System.out.println(date);
+		System.out.println(df.format(date));
 		
 		String reportContent = "fd8deb9d91a13e144ca5b0ce14e289532e040fe0bf922c6e3dadb1e4e2333c"
 				+ "78df535b90ac99bec8be3a8add45ce77897b1e7cb1906b5cff1097d3cb142f"
@@ -31,6 +39,7 @@ public class TCNTest {
 			System.out.println(uuid);
 //		Report report = Report.Companion.readReportFromByteArray(reportContent.getBytes());
 //		System.out.println(report.toString());
+		System.out.println(memo);
 	}
 	
 	public static byte[] hexStringToByteArray(String s) {
